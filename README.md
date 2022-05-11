@@ -1,2 +1,2 @@
 # it-begins
-JavaScript Practice
+JavaScript Practice Project
