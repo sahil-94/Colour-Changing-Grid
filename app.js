@@ -1,61 +1,33 @@
-const p1Button = document.querySelector('#p1Button');
-const p2Button = document.querySelector('#p2Button');
-const resetButton = document.querySelector('#reset');
-const p1Display = document.querySelector('#p1Display');
-const p2Display = document.querySelector('#p2Display');
-const winningScoreSelect = document.querySelector('#playto');
+// > color changing grid
+
+let row = 10;
+let column = 10;
+
+let container = document.querySelector('.container');
+
+for (let i = 1 ; i <= row ; i++) {
 
 
-let p1Score = 0;
-let p2Score = 0;
-let winningScore = 3;
-let isGameOver = false;
-
-p1Button.addEventListener('click', function () {
-    if (!isGameOver) {
-        p1Score += 1;
-        if (p1Score === winningScore) {
-            isGameOver = true;
-            p1Display.classList.add('has-text-success')
-            p2Display.classList.add('has-text-danger')
-            p1Button.disabled = true;
-            p2Button.disabled = true;
-        }
-        p1Display.textContent = p1Score;
+    for (let j = 1 ; j <= column ; j++) {
+        
+        let box = document.createElement('div');
+        box.classList.add('grid-box');
+      
+        container.appendChild(box);
     }
-})
-
-p2Button.addEventListener('click', function () {
-    if (!isGameOver) {
-        p2Score += 1;
-        if (p2Score === winningScore) {
-            isGameOver = true;
-            p2Display.classList.add('has-text-success')
-            p1Display.classList.add('has-text-danger')
-            p1Button.disabled = true;
-            p2Button.disabled = true;
-        }
-        p2Display.textContent = p2Score;
-    }
-})
-
-winningScoreSelect.addEventListener('change', function () {
-    // this.value will the value of the current object, which is the select option. 
-    // This value will be a string, so we use 'parseInt' to extract the number. And then we update the winning score.
-    winningScore = parseInt(this.value);
-    reset();
-})
-
-resetButton.addEventListener('click', reset)
-
-function reset() {
-    isGameOver = false;
-    p1Score = 0;
-    p2Score = 0;
-    p1Display.textContent = 0;
-    p2Display.textContent = 0;
-    p1Display.classList.remove('has-text-success', 'has-text-danger')
-    p2Display.classList.remove('has-text-success', 'has-text-danger')
-    p1Button.disabled = false;
-    p2Button.disabled = false;
 }
+
+let makeRandColor = () => {
+    let cells = document.querySelectorAll('.grid-box');
+    for (let i = 0; i < cells.length; i++){
+        let cell = cells[i];
+       
+        if (Math.random() > 0.5) {
+            cell.classList.add('color');
+        } else {
+            cell.classList.remove('color');
+        }
+    }
+}
+
+setInterval(makeRandColor, 200);
